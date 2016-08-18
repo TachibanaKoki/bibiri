@@ -25,10 +25,6 @@ public class CameraMove : MonoBehaviour
         TouchEvent();
 #endif
 
-
-
-
-
     }
 
     void MouseEvent()
