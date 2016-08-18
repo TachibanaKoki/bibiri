@@ -4,23 +4,29 @@ using System.Collections;
 public class escape : StateMachineBehaviour {
 
     NavMeshAgent agent;
+    AIParamater paramater;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent = animator.GetComponent<NavMeshAgent>();
-        agent.Stop();
+        paramater = animator.GetComponent<AIParamater>();
+        agent.destination = animator.transform.position + (paramater.escapeVector.normalized*10);
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if(agent.remainingDistance<0.5f)
+        {
+            agent.destination = animator.transform.position + (paramater.escapeVector.normalized * 10);
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.Resume();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

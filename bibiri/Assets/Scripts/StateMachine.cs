@@ -11,15 +11,16 @@ public class StateMachine : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update (){
 	
 	}
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag=="Enemy")
+        if(col.gameObject.tag=="Clap")
         {
             animator.SetTrigger("escape");
+            GetComponent<AIParamater>().escapeVector = transform.position-col.transform.position;
         }
     }
 }
